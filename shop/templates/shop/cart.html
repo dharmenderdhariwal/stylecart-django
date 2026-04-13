@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Cart | StyleCart{% endblock %}
+{% block content %}
+<section class="container section">
+    <div class="section-head"><h1>Your Cart</h1></div>
+    {% if items %}
+        <div class="cart-table">
+            {% for item in items %}
+                <div class="cart-row">
+                    <div>
+                        <h3>{{ item.product.name }}</h3>
+                        <p>₹{{ item.product.price }} x {{ item.quantity }}</p>
+                    </div>
+                    <div class="cart-actions">
+                        <a href="{% url 'shop:update_cart' item.product.id 'decrease' %}">-</a>
+                        <span>{{ item.quantity }}</span>
+                        <a href="{% url 'shop:update_cart' item.product.id 'increase' %}">+</a>
+                        <a class="remove" href="{% url 'shop:update_cart' item.product.id 'remove' %}">Remove</a>
+                    </div>
+                    <strong>₹{{ item.item_total }}</strong>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="checkout-box">
+            <h2>Total: ₹{{ total }}</h2>
+            <a class="btn" href="{% url 'shop:checkout' %}">Proceed to Checkout</a>
+        </div>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</section>
+{% endblock %}

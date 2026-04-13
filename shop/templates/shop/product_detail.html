@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ product.name }} | StyleCart{% endblock %}
+{% block content %}
+<section class="container section product-detail">
+    <div class="detail-image">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+            <img src="{% static 'images/product-default.svg' %}" alt="{{ product.name }}">
+        {% endif %}
+    </div>
+    <div class="detail-content">
+        <span class="badge">{{ product.category.name }}</span>
+        <h1>{{ product.name }}</h1>
+        <p class="rating">Rating: ★ {{ product.rating }}/5</p>
+        <h2>₹{{ product.price }}</h2>
+        <p>{{ product.description }}</p>
+        <p><strong>Stock:</strong> {{ product.stock }}</p>
+        <a class="btn" href="{% url 'shop:add_to_cart' product.id %}">Add to Cart</a>
+    </div>
+</section>
+{% endblock %}

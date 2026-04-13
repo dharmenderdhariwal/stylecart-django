@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}My Orders | StyleCart{% endblock %}
+{% block content %}
+<section class="container section">
+    <div class="section-head"><h1>My Orders</h1></div>
+    {% for order in orders %}
+        <div class="order-card">
+            <div class="order-head">
+                <div>
+                    <h3>Order #{{ order.id }}</h3>
+                    <p>{{ order.created_at }}</p>
+                </div>
+                <span class="badge">{{ order.get_status_display }}</span>
+            </div>
+            {% for item in order.items.all %}
+                <div class="summary-row">
+                    <span>{{ item.product.name }} x {{ item.quantity }}</span>
+                    <strong>₹{{ item.total_price }}</strong>
+                </div>
+            {% endfor %}
+            <div class="summary-row total">
+                <span>Total</span>
+                <strong>₹{{ order.total }}</strong>
+            </div>
+        </div>
+    {% empty %}
+        <p>No orders yet.</p>
+    {% endfor %}
+</section>
+{% endblock %}

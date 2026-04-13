@@ -1,0 +1,19 @@
+{% load static %}
+<div class="card product-card">
+    <a href="{{ product.get_absolute_url }}">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+            <img src="{% static 'images/product-default.svg' %}" alt="{{ product.name }}">
+        {% endif %}
+    </a>
+    <div class="card-body">
+        <span class="badge">★ {{ product.rating }}</span>
+        <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+        <p>{{ product.short_description }}</p>
+        <div class="price-row">
+            <strong>₹{{ product.price }}</strong>
+            <a class="btn small" href="{% url 'shop:add_to_cart' product.id %}">Add to Cart</a>
+        </div>
+    </div>
+</div>

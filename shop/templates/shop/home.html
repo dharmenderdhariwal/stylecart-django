@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home | StyleCart{% endblock %}
+{% block content %}
+<section class="hero container">
+    <div class="slider" id="slider">
+        <div class="slide active"><img src="{% static 'images/slide1.svg' %}" alt="Slide 1"></div>
+        <div class="slide"><img src="{% static 'images/slide2.svg' %}" alt="Slide 2"></div>
+        <div class="slide"><img src="{% static 'images/slide3.svg' %}" alt="Slide 3"></div>
+    </div>
+    <div class="hero-content">
+        <h1>Professional Ecommerce Website in Django</h1>
+        <p>Login, signup, logout, category page, cart, checkout, order tracking, image upload and slider — everything included.</p>
+        <a class="btn" href="{% url 'shop:product_list' %}">Shop Now</a>
+    </div>
+</section>
+
+<section class="container section">
+    <div class="section-head">
+        <h2>Shop by Category</h2>
+    </div>
+    <div class="grid grid-3">
+        {% for category in categories %}
+            <a href="{{ category.get_absolute_url }}" class="card category-card">
+                {% if category.image %}
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                {% else %}
+                    <img src="{% static 'images/category-default.svg' %}" alt="{{ category.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h3>{{ category.name }}</h3>
+                    <p>{{ category.description|default:'Premium collection for your store.'|truncatechars:80 }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="container section">
+    <div class="section-head">
+        <h2>Featured Products</h2>
+    </div>
+    <div class="grid grid-4">
+        {% for product in featured_products %}
+            {% include 'shop/partials/product_card.html' %}
+        {% empty %}
+            <p>Add featured products from admin panel.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="container section">
+    <div class="section-head">
+        <h2>Latest Arrivals</h2>
+    </div>
+    <div class="grid grid-4">
+        {% for product in latest_products %}
+            {% include 'shop/partials/product_card.html' %}
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

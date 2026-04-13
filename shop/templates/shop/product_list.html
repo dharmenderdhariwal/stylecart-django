@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Products | StyleCart{% endblock %}
+{% block content %}
+<section class="container section">
+    <div class="section-head">
+        <h1>All Products</h1>
+        {% if query %}<p>Search results for "{{ query }}"</p>{% endif %}
+    </div>
+    <div class="grid grid-4">
+        {% for product in products %}
+            {% include 'shop/partials/product_card.html' %}
+        {% empty %}
+            <p>No products found.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
