@@ -32,3 +32,6 @@ Open:
 2. Create categories.
 3. Create products.
 4. Upload your own image in the Product image field.
+
+
+ 
